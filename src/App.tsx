@@ -1,14 +1,18 @@
-import { Button } from "@/components/ui/button" ;
+import {  useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '@/redux/store';
+import { increment, decrement } from '@/redux/features/counter/counterSlice';
 
 function App() {
+ const count = useSelector((state: RootState) => state.counter.value);
+  const dispatch = useDispatch();
+
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-     <h1> Counter with Redux</h1>
-     <Button>Increment</Button>
-     <div>0</div>
-     <Button>Decrement</Button>
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
