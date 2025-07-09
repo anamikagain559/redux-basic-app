@@ -1,17 +1,11 @@
-import { increment, decrement } from '@/redux/features/counter/counterSlice';
-import { useAppDispatch, useAppSelector } from './redux/hook';
+import { Button } from "@/components/ui/button"
 
 function App() {
- const count = useAppSelector((state) => state.counter.value);
-  const dispatch = useAppDispatch();
-
   return (
-    <div>
-      <h1>Counter: {count}</h1>
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
+    <div className="flex min-h-svh flex-col items-center justify-center bg-red-100 p-24">
+      <Button>Click me</Button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
