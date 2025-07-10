@@ -1,9 +1,15 @@
-import React from 'react'
+import { useAppSelector } from '@/redux/hook';
 
-const tasks = () => {
+const Tasks = () => {
+  const tasks = useAppSelector((state) => state.todo.tasks);
+
   return (
-    <div>tasks</div>
-  )
-}
+    <div>
+      {tasks.map((task, index) => (
+        <div key={index}>{task.title}</div>
+      ))}
+    </div>
+  );
+};
 
-export default tasks
+export default Tasks;
