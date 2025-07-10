@@ -1,6 +1,6 @@
 import React from 'react'
 
-function user() {
+const user = () => {
   return (
     <div>user</div>
   )
