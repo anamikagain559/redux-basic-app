@@ -14,6 +14,14 @@ const initialState : InitialState = {
         isCompleted: false,
         priority: "high",
     },
+         {
+        id: "2",
+        title:" Secondary Task",
+        description: "Complete the Redux task management setup",  
+        dueDate: "2023-10-31",  
+        isCompleted: false,
+        priority: "high",
+    },
     ]
    
 };
