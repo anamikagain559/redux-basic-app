@@ -3,7 +3,7 @@ import type { Book, BookInput } from '@/types';
 
 export const bookApi = createApi({
   reducerPath: 'bookApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/v1' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api' }),
   tagTypes: ['Book'],
   endpoints: (builder) => ({
     getBooks: builder.query<Book[], void>({
@@ -11,15 +11,23 @@ export const bookApi = createApi({
       providesTags: ['Book'],
     }),
     createBook: builder.mutation<void, BookInput>({
-      query: (book) => ({
+      query: (books) => ({
         url: '/books',
         method: 'POST',
-        body: book,
+        body: books,
       }),
       invalidatesTags: ['Book'],
     }),
-    
+    deleteBook: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/books/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Book'],
+    }),
   }),
+ 
+  
 });
 
-export const { useGetBooksQuery, useCreateBookMutation } = bookApi;
+export const { useGetBooksQuery, useCreateBookMutation ,useDeleteBookMutation } = bookApi;
