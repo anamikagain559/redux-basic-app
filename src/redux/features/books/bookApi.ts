@@ -10,11 +10,23 @@ export const bookApi = createApi({
       query: () => '/books',
       providesTags: ['Book'],
     }),
+    getBookById: builder.query<Book, string>({
+  query: (id) => `/books/${id}`,
+  providesTags: (result, error, id) => [{ type: 'Book', id }],
+}),
     createBook: builder.mutation<void, BookInput>({
       query: (books) => ({
         url: '/books',
         method: 'POST',
         body: books,
+      }),
+      invalidatesTags: ['Book'],
+    }),
+     updateBook: builder.mutation<void, { id: string; data: BookInput }>({
+      query: ({ id, data }) => ({
+        url: `/books/${id}`,
+        method: 'PUT', // or PATCH if your API supports partial update
+        body: data,
       }),
       invalidatesTags: ['Book'],
     }),
@@ -30,4 +42,4 @@ export const bookApi = createApi({
   
 });
 
-export const { useGetBooksQuery, useCreateBookMutation ,useDeleteBookMutation } = bookApi;
+export const { useGetBooksQuery,useGetBookByIdQuery, useCreateBookMutation ,useDeleteBookMutation ,useUpdateBookMutation} = bookApi;

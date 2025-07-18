@@ -100,7 +100,7 @@ const BookList = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 mt-10">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">📚 Book Management</h1>
+        <h1 className="text-3xl font-bold"> Book Management</h1>
         <Button onClick={() => navigate("/create-book")}>Add New Book</Button>
       
       </div>
@@ -135,7 +135,7 @@ const BookList = () => {
                     <Button className="bg-red-400 text-white hover:bg-red-700" variant="destructive" size="sm" onClick={() => handleDelete(book._id)}>
                       Delete
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => navigate(`/books/borrow/${book._id}`)}>
+                    <Button size="sm" variant="outline" onClick={() => navigate(`/borrow-book/${book._id}`)}>
                       Borrow
                     </Button>
                   </div>

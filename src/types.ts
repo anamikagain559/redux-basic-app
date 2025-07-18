@@ -28,12 +28,12 @@ export interface BookInput {
   available?: boolean;
 }
 
-// === FILE: src/types/borrow.ts ===
-export interface BorrowInput {
-  bookId: string;
+
+export type BorrowInput = {
+  book: string;
   quantity: number;
   dueDate: string;
-}
+};
 
 export interface BorrowSummary {
   bookTitle: string;
