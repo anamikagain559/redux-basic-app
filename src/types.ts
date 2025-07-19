@@ -40,3 +40,14 @@ export interface BorrowSummary {
   isbn: string;
   totalBorrowed: number;
 }
+
+export const Genre = {
+  FICTION: 'FICTION',
+  NON_FICTION: 'NON_FICTION',
+  SCIENCE: 'SCIENCE',
+  HISTORY: 'HISTORY',
+  BIOGRAPHY: 'BIOGRAPHY',
+  FANTASY: 'FANTASY',
+} as const;
+
+export type Genre = keyof typeof Genre;

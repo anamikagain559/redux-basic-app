@@ -1,12 +1,5 @@
-export enum Genre {
-  FICTION = 'FICTION',
-  NON_FICTION = 'NON_FICTION',
-  SCIENCE = 'SCIENCE',
-  HISTORY = 'HISTORY',
-  BIOGRAPHY = 'BIOGRAPHY',
-  FANTASY = 'FANTASY',
-}
 
+import { Genre } from '@/types';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useCreateBookMutation } from '@/redux/features/books/bookApi';
@@ -26,7 +19,8 @@ const CreateBook = () => {
   const {
     register,
     handleSubmit,
-    reset,
+    setError,
+    reset, 
     formState: { errors },
   } = useForm<BookFormInputs>();
 
@@ -38,13 +32,25 @@ const CreateBook = () => {
       const payload = {
         ...data,
         available: data.copies > 0,
+       description: data.description || '',
       };
       await createBook(payload).unwrap();
       toast.success('Book created successfully!');
       reset();
       navigate('/books');
-    } catch (error: any) {
-      toast.error('Failed to create book');
+    }catch (err: any) {
+      if (err?.data?.message === 'Validation failed' && err?.data?.error) {
+        const validationErrors = err.data.error;
+        
+        Object.entries(validationErrors).forEach(([field, value]) => {
+          setError(field as keyof BookFormInputs, {
+            type: 'server',
+            message: (value as any).message || 'Invalid input',
+          });
+        });
+      } else {
+        toast.error(err?.data?.message || 'Failed to create book');
+      }
     }
   };
 

@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     children: [
           {
         index: true,
-        element: <Tasks />,
+        element: <BookList />,
       },
               {
         path:  "tasks",
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         path: "user",
         element: <User />,
       },
-      { path: 'books', element: <BookList /> },
+      { path: 'books', element: <BookList />, },
       { path: 'create-book', element: <CreateBook /> },
       { path: 'edit-book/:id', element: <EditBook /> },
       {path: 'borrow-book/:id', element: <BorrowBook/>},

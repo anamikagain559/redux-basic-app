@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 import { useUpdateBookMutation, useGetBookByIdQuery } from '@/redux/features/books/bookApi';
 import { toast } from 'react-toastify';
-import { Genre } from './CreateBook';
+import { Genre } from '@/types';
 
 type BookFormInputs = {
   title: string;

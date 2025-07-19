@@ -6,22 +6,20 @@ import { useBorrowBookMutation } from "@/redux/features/borrows/borrowApi";
 import { useGetBookByIdQuery } from "@/redux/features/books/bookApi";
 
 type BorrowFormInputs = {
+  book: string;
   quantity: number;
   dueDate: string;
 };
 
 const BorrowBook = () => {
   const { id } = useParams<{ id: string }>();
+
   const navigate = useNavigate();
 
-  if (!id) {
-    toast.error("Book ID is required");
-    return null;
-  }
+ const [borrowBook] = useBorrowBookMutation();
+  const { data: bookData, isLoading, isError } = useGetBookByIdQuery(id!);
 
-  const { data: bookData, isLoading, isError } = useGetBookByIdQuery(id);
-  const [borrowBook] = useBorrowBookMutation();
-
+console.log(bookData);
   const {
     register,
     handleSubmit,
@@ -31,7 +29,7 @@ const BorrowBook = () => {
   const onSubmit = async (data: BorrowFormInputs) => {
     if (!bookData) return;
 
-    const book = bookData?.data ?? bookData;
+const book = bookData?.data ?? bookData;
 
     if (data.quantity > book.copies) {
       toast.error("Quantity exceeds available copies");
