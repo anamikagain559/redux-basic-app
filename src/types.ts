@@ -25,7 +25,7 @@ export interface BookInput {
   isbn: string;
   description: string;
   copies: number;
-  available?: boolean;
+  available: boolean;
 }
 
 
@@ -36,11 +36,19 @@ export type BorrowInput = {
 };
 
 export interface BorrowSummary {
-  bookTitle: string;
-  isbn: string;
-  totalBorrowed: number;
+  _id: string;
+  totalQuantity: number;
+  book: {
+    title: string;
+    isbn: string;
+  };
 }
 
+export interface BorrowSummaryResponse {
+  success: boolean;
+  message: string;
+  data: BorrowSummary[];
+}
 export const Genre = {
   FICTION: 'FICTION',
   NON_FICTION: 'NON_FICTION',

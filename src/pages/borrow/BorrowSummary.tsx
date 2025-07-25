@@ -1,12 +1,18 @@
 import { useGetBorrowSummaryQuery } from "@/redux/features/borrows/borrowApi";
+import type { BorrowSummary } from "@/types";
 
-const BorrowSummary = () => {
+const BorrowSummaryPage = () => {
   const { data, isLoading, isError } = useGetBorrowSummaryQuery();
 
-  if (isLoading) return <p className="text-center mt-10">Loading borrow summary...</p>;
-  if (isError) return <p className="text-center mt-10 text-red-500">Error loading borrow summary</p>;
+  console.log(data);
+  const summary: BorrowSummary[] = data?.data ?? [];
 
-  const summary = data?.data ?? [];
+
+  if (isLoading)
+    return <p className="text-center mt-10">Loading borrow summary...</p>;
+
+  if (isError)
+    return <p className="text-center mt-10 text-red-500">Error loading borrow summary</p>;
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-xl shadow">
@@ -24,10 +30,10 @@ const BorrowSummary = () => {
             </tr>
           </thead>
           <tbody>
-            {summary.map((item: any) => (
+            {summary.map((item) => (
               <tr key={item._id}>
-                <td className="p-3 border">{item.book?.title || 'N/A'}</td>
-                <td className="p-3 border">{item.book?.isbn || 'N/A'}</td>
+                <td className="p-3 border">{item.book?.title || "N/A"}</td>
+                <td className="p-3 border">{item.book?.isbn || "N/A"}</td>
                 <td className="p-3 border">{item.totalQuantity}</td>
               </tr>
             ))}
@@ -38,4 +44,4 @@ const BorrowSummary = () => {
   );
 };
 
-export default BorrowSummary;
+export default BorrowSummaryPage;

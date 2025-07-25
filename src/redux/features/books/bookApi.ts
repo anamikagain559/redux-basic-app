@@ -3,16 +3,17 @@ import type { Book, BookInput } from '@/types';
 
 export const bookApi = createApi({
   reducerPath: 'bookApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://library-project-eta.vercel.app/api' }),
   tagTypes: ['Book'],
   endpoints: (builder) => ({
     getBooks: builder.query<Book[], void>({
       query: () => '/books',
-      providesTags: ['Book'],
+       transformResponse: (response: { data: Book[] }) => response.data,
     }),
     getBookById: builder.query<Book, string>({
   query: (id) => `/books/${id}`,
-  providesTags: (result, error, id) => [{ type: 'Book', id }],
+providesTags: (_, __, id) => [{ type: 'Book', id }],
+  transformResponse: (response: { data: Book }) => response.data,
 }),
     createBook: builder.mutation<void, BookInput>({
       query: (books) => ({

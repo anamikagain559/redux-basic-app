@@ -29,7 +29,7 @@ console.log(bookData);
   const onSubmit = async (data: BorrowFormInputs) => {
     if (!bookData) return;
 
-const book = bookData?.data ?? bookData;
+const book = bookData;
 
     if (data.quantity > book.copies) {
       toast.error("Quantity exceeds available copies");
@@ -38,14 +38,15 @@ const book = bookData?.data ?? bookData;
 
     try {
       await borrowBook({
-        book: id,
+       book: id!,
         quantity: data.quantity,
         dueDate: data.dueDate,
       }).unwrap();
 
       toast.success("Book borrowed successfully!");
       navigate("/borrow-summary");
-    } catch (err) {
+    } catch (error) {
+      console.error("Failed to borrow book:", error);
       toast.error("Failed to borrow book");
     }
   };
@@ -53,7 +54,7 @@ const book = bookData?.data ?? bookData;
   if (isLoading) return <p className="text-center mt-10">Loading book info...</p>;
   if (isError || !bookData) return <p className="text-center mt-10 text-red-500">Error loading book</p>;
 
-  const book = bookData?.data ?? bookData;
+const book = bookData;
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow">

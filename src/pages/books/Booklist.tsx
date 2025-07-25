@@ -3,15 +3,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card } from "@/components/ui/card";
 import { useDeleteBookMutation, useGetBooksQuery } from "@/redux/features/books/bookApi";
 import { useNavigate } from "react-router";
-import type { Book } from "@/types";
 import { toast } from 'react-toastify';
 const BookList = () => {
- const { data, isLoading, isError } = useGetBooksQuery();
+  
+const { data: books = [], isLoading, isError } = useGetBooksQuery();
+
   const navigate = useNavigate();
 
-  const books: Book[] = data?.data || []; 
-
-  console.log(books);
  const [deleteBook] = useDeleteBookMutation();
 
  const handleDelete = async (id: string) => {

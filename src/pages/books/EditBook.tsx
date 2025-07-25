@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 import { useUpdateBookMutation, useGetBookByIdQuery } from '@/redux/features/books/bookApi';
@@ -10,7 +10,7 @@ type BookFormInputs = {
   author: string;
   genre: Genre;
   isbn: string;
-  description?: string;
+  description: string;
   copies: number;
   available: boolean;
 };
@@ -18,7 +18,6 @@ type BookFormInputs = {
 const EditBook = () => {
   const { id } = useParams<{ id: string }>();
   const { data: book, isLoading: isLoadingBook, isError } = useGetBookByIdQuery(id!);
-  console.log(book);
   const [updateBook, { isLoading: isUpdating }] = useUpdateBookMutation();
   const navigate = useNavigate();
 
@@ -39,27 +38,26 @@ const EditBook = () => {
       available: true,
     },
   });
-
 useEffect(() => {
   if (book) {
     reset({
-      title: book.data.title ?? '',
-      author: book.data.author ?? '',
-      genre: book.data.genre ?? Genre.FICTION,
-      isbn: book.data.isbn ?? '',
-      description: book.data.description ?? '',
-      copies: book.data.copies ?? 0,
-      available: book.data.available ?? true,
+      title: book.title ?? '',
+      author: book.author ?? '',
+      genre: Genre[book.genre as keyof typeof Genre] ?? Genre.FICTION,
+      isbn: book.isbn ?? '',
+      description: book.description ?? '',
+      copies: book.copies ?? 0,
+      available: book.available ?? true,
     });
   }
 }, [book, reset]);
-
   const onSubmit = async (data: BookFormInputs) => {
     try {
       await updateBook({ id: id!, data: { ...data, available: data.copies > 0 } }).unwrap();
       toast.success('Book updated successfully!');
       navigate('/books');
     } catch (error) {
+      console.error('Failed to update book:', error);
       toast.error('Failed to update book');
     }
   };

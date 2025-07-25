@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { BorrowInput, BorrowSummary } from '@/types';
+import type { BorrowInput,  BorrowSummaryResponse } from '@/types';
 
 export const borrowApi = createApi({
   reducerPath: 'borrowApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://library-project-eta.vercel.app/api' }),
   tagTypes: ['Borrow', 'Book'],  // Invalidate book data if needed
   endpoints: (builder) => ({
     
@@ -18,7 +18,7 @@ export const borrowApi = createApi({
     }),
 
     // Get summary of borrowed books (GET)
-    getBorrowSummary: builder.query<BorrowSummary[], void>({
+    getBorrowSummary: builder.query<BorrowSummaryResponse, void>({
       query: () => '/borrow',
       providesTags: ['Borrow'],
     }),
