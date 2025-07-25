@@ -128,20 +128,3 @@ Ensure MongoDB is running locally or provide a connection string in your \`.env\
 
 ---
 
-## 📁 Folder Structure (Client)
-
-\`\`\`
-src/
-├── components/
-├── pages/
-│   ├── books/
-│   ├── borrow/
-├── redux/
-│   ├── features/
-│   └── store.ts
-├── types/
-└── App.tsx
-\`\`\`
-
----
-
